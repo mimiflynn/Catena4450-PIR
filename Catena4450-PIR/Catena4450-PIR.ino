@@ -429,7 +429,7 @@ void startSendingUplink(void)
   if (fHasPir)
         {
           int val = digitalRead(A1);  // read input value on A1
-          gCatena.SafePrintf("Motion: ", val);
+          gCatena.SafePrintf("Motion: %u \n", val);
           b.put(val);
           flag |= FlagsSensor2::FlagPir;
         }
