@@ -426,14 +426,6 @@ void startSendingUplink(void)
         flag |= FlagsSensor2::FlagLux;
         }
 
-  if (fHasPir)
-        {
-          int val = digitalRead(A1);  // read input value on A1
-          gCatena.SafePrintf("Motion: %u \n", val);
-          b.put(val);
-          flag |= FlagsSensor2::FlagPir;
-        }
-
   if (fHasPower1)
         {
         uint32_t power1in, power1out;
@@ -485,6 +477,14 @@ void startSendingUplink(void)
                 );
 
         flag |= FlagsSensor2::FlagPulsesPerHour;
+        }
+
+  if (fHasPir)
+        {
+          uint8_t val = digitalRead(A1);  // read input value on A1
+          gCatena.SafePrintf("Motion: %u \n", val);
+          b.put(val);
+          flag |= FlagsSensor2::FlagPir;
         }
 
   *pFlag = uint8_t(flag);

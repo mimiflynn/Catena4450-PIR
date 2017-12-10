@@ -97,6 +97,12 @@ function Decoder(bytes, port) {
         decoded.powerUsedPerHour = powerPerHourIn;
         decoded.powerSourcedPerHour = powerPerHourOut;
       }
+      
+      if (flags & 0x80) {
+        // pir boolean - motion detected
+        var pir = bytes[i];
+        decoded.pir = pir;
+      }
     } else if (cmd == 0x15) {
       // decode Catena 4450 M102 data
 
@@ -199,12 +205,6 @@ function Decoder(bytes, port) {
         i += 1;
         decoded.tSoil = tempRaw / 256;
         decoded.rhSoil = tempRH / 256 * 100;
-      }
-      
-      if (flags & 0x80) {
-        // pir boolean - motion detected
-        var pir = bytes[i];
-        decoded.pir = pir;
       }
     } else {
       // nothing
